@@ -9,6 +9,6 @@
     </head>
     <body>
         <h1>Product Management</h1>
-        <a href="products.jsp">View Products</a>
+        <a href="productManagement?action=displayProducts">View Products</a>
     </body>
 </html>

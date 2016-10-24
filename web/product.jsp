@@ -16,12 +16,14 @@
         User <a href="#">Logout</a>
         <h1>Product</h1>
         
-        <form>
+        <form action="productManagement" method="post">
             <label>Code: </label><input type="text" name="code"><br>
-            <div id="label-textbox"><label>Description: </label><textarea cols="40px" rows="5px"></textarea></div><br>
+            <div id="label-textbox"><label>Description: </label><textarea cols="40px" rows="5px" name="description"></textarea></div><br>
             <label>Price: </label><input type="text" name="price"><br>
+            <input type="hidden" name="action" value="add">
+            <input type="submit" value="Update Product">
         </form>
         
-        <label></label><button>Update Product</button><button>View Products</button>
+        <label></label><button>View Products</button>
     </body>
 </html>
