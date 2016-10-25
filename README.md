@@ -5,6 +5,6 @@ NOTE: Line 16 in ProductManagementServlet has to be updated to hold the path to 
 
 Adding, editing, and deleting products now works perfectly.
 
-To do: Add input validation for adding products
-	Make it look a little prettier
-	Get the User registration/login working
+To do: Add input validation for adding products,
+Make it look a little prettier,
+Get the User registration/login working
