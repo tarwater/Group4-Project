@@ -25,8 +25,10 @@
     <td>${item.code}</td>
     <td>${item.description}</td>
     <td>${item.price}</td>
-    <td><a href="#">Edit</a></td>
-    <td><a href="confirmDelete.jsp">Delete</a></td
+    <td><form action="productManagement" method="post"><input type="hidden" name="action" value="edit"><input type="hidden" name="code" value="${item.code}">
+         <input type="submit" value="Edit"></form></td>
+    <td><form action="productManagement" method="post"><input type="hidden" name="action" value="delete"><input type="hidden" name="code" value="${item.code}">
+         <input type="submit" value="Delete"></form>              </td>
     </tr>
 </c:forEach>
   

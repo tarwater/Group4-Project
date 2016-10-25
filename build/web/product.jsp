@@ -17,13 +17,13 @@
         <h1>Product</h1>
         
         <form action="productManagement" method="post">
-            <label>Code: </label><input type="text" name="code"><br>
-            <div id="label-textbox"><label>Description: </label><textarea cols="40px" rows="5px" name="description"></textarea></div><br>
-            <label>Price: </label><input type="text" name="price"><br>
+            <label>Code: </label><input type="text" name="code" value="${code}"><br>
+            <div id="label-textbox"><label>Description: </label><textarea cols="40px" rows="5px" name="description">${description}</textarea></div><br>
+            <label>Price: </label><input type="text" name="price" value="${price}"><br>
             <input type="hidden" name="action" value="add">
             <input type="submit" value="Update Product">
         </form>
         
-        <label></label><button>View Products</button>
+        <button onclick="window.location.href='productManagement?action=displayProducts'" >View Products</button>
     </body>
 </html>

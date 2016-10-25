@@ -11,9 +11,16 @@
         User <a href="#">Logout</a>
         <h1>Are you sure you want to delete this product?</h1>
         
-        <label>Code: </label>8601<br>
-        <label>Description: </label>86 (The band) - True Life Songs and Pictures<br>
-        <label>Price: </label>15.95<br>
-        <button>Yes</button><button>No</button>
+        <label>Code: </label>${code}<br>
+        <label>Description: </label>${description}<br>
+        <label>Price: </label>${price}<br>
+        <form method="post" action="productManagement">
+            <input type="hidden" name="code" value="${code}">
+            <input type="hidden" name="action" value="confirmDelete">
+            <input type="submit" value="Yes">
+        </form>
+        
+        
+        <button onclick="window.location.href='productManagement?action=displayProducts'" >No</button>
     </body>
 </html>

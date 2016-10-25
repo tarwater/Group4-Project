@@ -13,6 +13,8 @@ import java.io.File;
 @WebServlet(urlPatterns = {"/productManagement"})
 public class ProductManagementServlet extends HttpServlet {
 
+    private String productsFile = "C:\\Users\\Owner\\Desktop\\ITIS-4166\\Group4-Project\\web\\WEB-INF\\products.txt";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -26,7 +28,7 @@ public class ProductManagementServlet extends HttpServlet {
         String url = ""; //Redirection url
         String action = request.getParameter("action"); //Parameter from /productManagement?action= 
 
-        List<Product> products = ProductIO.selectProducts("products.txt");
+        List<Product> products = ProductIO.selectProducts(productsFile);
 
         request.setAttribute("products", products);
 
@@ -67,18 +69,72 @@ public class ProductManagementServlet extends HttpServlet {
             Double price = Double.parseDouble(request.getParameter("price"));
 
             Product p = new Product();
+            p.setPrice(price);
+            p.setCode(code);
+            p.setDescription(description);
 
             p.setPrice(price);
             p.setCode(code);
             p.setDescription(description);
 
-            ProductIO.insertProduct(p, "products.txt");
+            if (ProductIO.exists(code, productsFile)) {
+
+                ProductIO.updateProduct(p, productsFile);
+
+            } else {
+                ProductIO.insertProduct(p, productsFile);
+
+            }
 
             String url = "/product.jsp";
             getServletContext().getRequestDispatcher(url).forward(request, response);
 
-        } else if(action.equals("delete")){
-            
+        } else if (action.equals("edit")) {
+
+            action = "";
+
+            String code = request.getParameter("code");
+
+            Product p = ProductIO.selectProduct(code, productsFile);
+
+            String description = p.getDescription();
+            String price = p.getPrice() + "";
+
+            request.setAttribute("price", price);
+            request.setAttribute("code", code);
+            request.setAttribute("description", description);
+
+            String url = "/product.jsp";
+            getServletContext().getRequestDispatcher(url).forward(request, response);
+
+        } else if (action.equals("delete")) {
+
+            action = "";
+
+            String code = request.getParameter("code");
+
+            Product p = ProductIO.selectProduct(code, productsFile);
+            String description = p.getDescription();
+            String price = p.getPrice() + "";
+
+            request.setAttribute("price", price);
+            request.setAttribute("code", code);
+            request.setAttribute("description", description);
+
+            String url = "/confirmDelete.jsp";
+            getServletContext().getRequestDispatcher(url).forward(request, response);
+
+        } else if (action.equals("confirmDelete")) {
+            action = "";
+
+            String code = request.getParameter("code");
+
+            Product p = ProductIO.selectProduct(code, productsFile);
+            ProductIO.deleteProduct(p, productsFile);
+
+            String url = "/index.jsp";
+            getServletContext().getRequestDispatcher(url).forward(request, response);
+
         }
 
     }
