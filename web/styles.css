@@ -25,6 +25,7 @@ label {
 
 input {
     margin-bottom: 16px;
+    
 }
 
 #label-textbox * {
@@ -44,3 +45,10 @@ button {
     float: right;
 }
 
+form {
+    display: inline;
+}
+
+#message {
+    color: red;
+}

@@ -25,5 +25,6 @@
         </form>
         
         <button onclick="window.location.href='productManagement?action=displayProducts'" >View Products</button>
+        <p id="message">${message}</p>
     </body>
 </html>

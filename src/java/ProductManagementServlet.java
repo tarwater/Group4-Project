@@ -66,24 +66,26 @@ public class ProductManagementServlet extends HttpServlet {
             action = "";
             String code = request.getParameter("code");
             String description = request.getParameter("description");
-            Double price = Double.parseDouble(request.getParameter("price"));
+            String price = request.getParameter("price");
 
-            Product p = new Product();
-            p.setPrice(price);
-            p.setCode(code);
-            p.setDescription(description);
+            boolean validEntries = testForValidEntries(code, description, price);
 
-            p.setPrice(price);
-            p.setCode(code);
-            p.setDescription(description);
+            if (validEntries) {
+                Product p = new Product();
+                p.setPrice(Double.parseDouble(price));
+                p.setCode(code);
+                p.setDescription(description);
 
-            if (ProductIO.exists(code, productsFile)) {
+                if (ProductIO.exists(code, productsFile)) {
 
-                ProductIO.updateProduct(p, productsFile);
+                    ProductIO.updateProduct(p, productsFile);
 
+                } else {
+                    ProductIO.insertProduct(p, productsFile);
+
+                }
             } else {
-                ProductIO.insertProduct(p, productsFile);
-
+                request.setAttribute("message", "One or more entries was invalid!");
             }
 
             String url = "/product.jsp";
@@ -136,6 +138,22 @@ public class ProductManagementServlet extends HttpServlet {
             getServletContext().getRequestDispatcher(url).forward(request, response);
 
         }
+
+    }
+
+    public boolean testForValidEntries(String code, String desc, String price) {
+
+        if (code.equals("") || desc.equals("") || price.equals("")) {
+            return false;
+        }
+
+        try {
+            Double.parseDouble(price);
+        } catch (Exception e) {
+            return false;
+        }
+
+        return true;
 
     }
 

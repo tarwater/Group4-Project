@@ -14,13 +14,14 @@
         <label>Code: </label>${code}<br>
         <label>Description: </label>${description}<br>
         <label>Price: </label>${price}<br>
-        <form method="post" action="productManagement">
+        <div id="delete-form-buttons">
+        <form method="post" action="productManagement" id="delete-form">
             <input type="hidden" name="code" value="${code}">
             <input type="hidden" name="action" value="confirmDelete">
+            
             <input type="submit" value="Yes">
         </form>
         
-        
-        <button onclick="window.location.href='productManagement?action=displayProducts'" >No</button>
+            <button onclick="window.location.href='productManagement?action=displayProducts'" >No</button></div>
     </body>
 </html>
