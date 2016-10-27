@@ -1,6 +1,7 @@
 
 import java.io.*;
 import java.util.*;
+
 public class UserIO {
 
     public static void addRecord(User user, String filename) throws IOException {
@@ -15,15 +16,14 @@ public class UserIO {
     }
 
     public static User getUser(String emailAddress, String filename) throws IOException {
-        
+
         User user = null;
         File file = new File(filename);
-        
-        if(file.exists())
-        {
+
+        if (file.exists()) {
             BufferedReader in = new BufferedReader(
                     new FileReader(file));
-            
+
             user = new User();
 
             String line = in.readLine();
@@ -49,8 +49,7 @@ public class UserIO {
     public static ArrayList<User> getUsers(String filename) throws IOException {
         ArrayList<User> users = new ArrayList<User>();
         File file = new File(filename);
-        if(file.exists())
-        {
+        if (file.exists()) {
             BufferedReader in = new BufferedReader(
                     new FileReader(file));
             String line = in.readLine();
@@ -76,8 +75,7 @@ public class UserIO {
     public static HashMap<String, User> getUsersMap(String filename) throws IOException {
         HashMap<String, User> users = new HashMap<String, User>();
         File file = new File(filename);
-        if(file.exists())
-        {
+        if (file.exists()) {
             BufferedReader in = new BufferedReader(
                     new FileReader(file));
             String line = in.readLine();
@@ -88,7 +86,7 @@ public class UserIO {
                     String firstName = t.nextToken();
                     String lastName = t.nextToken();
                     String password = t.nextToken();
-                    User user = new User(firstName, lastName, emailAddress,password);
+                    User user = new User(firstName, lastName, emailAddress, password);
                     users.put(emailAddress, user);
                     line = in.readLine();
                 } catch (NoSuchElementException e) {

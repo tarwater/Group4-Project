@@ -9,11 +9,14 @@
     </head>
     <body>
         <h1>Login</h1>
-        <div id="login-form">
-        <label>Username:</label><input type="text"><br>
-        <label>Password:</label><input type="password"><br>
-        <button id="right-form-button">Login</button><br>
-        </div>
-        <a href="signup.jsp">New user? Click here to register.</a>
+        <form action="membership" method="post">
+            <div id="login-form">
+                <label>Username:</label><input type="text" name="username"><br>
+                <label>Password:</label><input type="password" name="password"><br>
+                <input type="hidden" name="action" value="login">
+                <input type="submit" value="Login" id="right-form-button"><br></form>
+            </div>
+            <a href="signup.jsp">New user? Click here to register.</a>
+            <p id="message">${message}</p>
     </body>
 </html>
