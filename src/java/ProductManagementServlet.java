@@ -1,17 +1,20 @@
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.List;
-import java.io.File;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(urlPatterns = {"/productManagement"})
 public class ProductManagementServlet extends HttpServlet {
+    
+  // ServletContext sc = getServletContext();
+   //private String productsFile = sc.getRealPath("/WEB-INF/products.txt");
+    
 
     private String productsFile = "C:\\Users\\Owner\\Desktop\\ITIS-4166\\Group4-Project\\web\\WEB-INF\\products.txt";
 
@@ -24,6 +27,14 @@ public class ProductManagementServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
+        HttpSession session = request.getSession();
+        
+        if(session.getAttribute("user") == null){
+            request.setAttribute("message", "You must register and log in.");
+            String url = "/login.jsp";
+            getServletContext().getRequestDispatcher(url).forward(request, response);
+        }
 
         String url = ""; //Redirection url
         String action = request.getParameter("action"); //Parameter from /productManagement?action= 
@@ -59,6 +70,13 @@ public class ProductManagementServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
 
+        HttpSession session = request.getSession();
+        if(session.getAttribute("user") == null){
+            request.setAttribute("message", "You must register and log in.");
+            String url = "/login.jsp";
+            getServletContext().getRequestDispatcher(url).forward(request, response);
+        }
+        
         String action = request.getParameter("action");
 
         if (action.equals("add")) {

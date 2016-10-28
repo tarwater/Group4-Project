@@ -11,7 +11,7 @@
         <h1>Login</h1>
         <form action="membership" method="post">
             <div id="login-form">
-                <label>Username:</label><input type="text" name="username"><br>
+                <label>Email:</label><input type="text" name="email"><br>
                 <label>Password:</label><input type="password" name="password"><br>
                 <input type="hidden" name="action" value="login">
                 <input type="submit" value="Login" id="right-form-button"><br></form>

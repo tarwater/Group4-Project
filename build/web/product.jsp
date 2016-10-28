@@ -13,7 +13,7 @@
         <link rel="stylesheet" type="text/css" href="styles.css">
     </head>
     <body>
-        User <a href="#">Logout</a>
+        User <a href="membership?action=logout">Logout</a>
         <h1>Product</h1>
         
         <form action="productManagement" method="post">

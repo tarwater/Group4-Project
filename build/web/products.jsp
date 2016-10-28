@@ -8,7 +8,7 @@
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     </head>
     <body>
-        User <a href="#">Logout</a>
+        User <a href="membership?action=logout">Logout</a>
         <h1>Products</h1>
 
     <table>
