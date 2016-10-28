@@ -11,12 +11,6 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet(urlPatterns = {"/productManagement"})
 public class ProductManagementServlet extends HttpServlet {
-    
-  // ServletContext sc = getServletContext();
-   //private String productsFile = sc.getRealPath("/WEB-INF/products.txt");
-    
-
-    private String productsFile = "C:\\Users\\Owner\\Desktop\\ITIS-4166\\Group4-Project\\web\\WEB-INF\\products.txt";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -27,10 +21,11 @@ public class ProductManagementServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
+
         HttpSession session = request.getSession();
-        
-        if(session.getAttribute("user") == null){
+        String productsFile = getServletContext().getRealPath("/WEB-INF/products.txt");
+
+        if (session.getAttribute("user") == null) {
             request.setAttribute("message", "You must register and log in.");
             String url = "/login.jsp";
             getServletContext().getRequestDispatcher(url).forward(request, response);
@@ -71,12 +66,14 @@ public class ProductManagementServlet extends HttpServlet {
         processRequest(request, response);
 
         HttpSession session = request.getSession();
-        if(session.getAttribute("user") == null){
+        String productsFile = getServletContext().getRealPath("/WEB-INF/products.txt"); 
+
+        if (session.getAttribute("user") == null) {
             request.setAttribute("message", "You must register and log in.");
             String url = "/login.jsp";
             getServletContext().getRequestDispatcher(url).forward(request, response);
         }
-        
+
         String action = request.getParameter("action");
 
         if (action.equals("add")) {

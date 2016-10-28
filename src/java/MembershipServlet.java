@@ -13,8 +13,7 @@ import javax.servlet.http.HttpSession;
 
 public class MembershipServlet extends HttpServlet {
 
-    private String userFile = "C:\\Users\\Owner\\Desktop\\ITIS-4166\\Group4-Project\\web\\WEB-INF\\users.txt";
-
+    //private String userFile = "C:\\Users\\Owner\\Desktop\\ITIS-4166\\Group4-Project\\web\\WEB-INF\\users.txt";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -29,16 +28,18 @@ public class MembershipServlet extends HttpServlet {
         String action = request.getParameter("action"); //Get the parameter from /membership?action=
         String url = ""; //Will hold redirection URL
 
+        String productsFile = getServletContext().getRealPath("/WEB-INF/products.txt"); 
+
         if (action.equals("signup")) {
             url = "/signup.jsp";
             getServletContext().getRequestDispatcher(url).forward(request, response);
         } else if (action.equals("login")) {
             url = "/login.jsp";
             getServletContext().getRequestDispatcher(url).forward(request, response);
-        } else if (action.equals("logout")){
+        } else if (action.equals("logout")) {
             HttpSession session = request.getSession();
             session.invalidate();
-            
+
             url = "/login.jsp";
             request.setAttribute("message", "You are logged out");
             getServletContext().getRequestDispatcher(url).forward(request, response);
@@ -52,12 +53,12 @@ public class MembershipServlet extends HttpServlet {
         processRequest(request, response);
 
         String action = request.getParameter("action");
+        
+        HttpSession session = request.getSession();
+        String userFile = getServletContext().getRealPath("/WEB-INF/users.txt");
 
         if (action.equals("register")) {
 
-            //create new entry in users.txt
-            //redirect to login.jsp
-            //String userName = request.getParameter("username");
             String email = request.getParameter("email");
             String firstName = request.getParameter("firstName");
             String lastName = request.getParameter("lastName");
@@ -75,13 +76,11 @@ public class MembershipServlet extends HttpServlet {
                 user.setPassword(password);
                 UserIO.addRecord(user, userFile);
 
-                String url = "/signup.jsp";
+                String url = "/login.jsp";
                 getServletContext().getRequestDispatcher(url).forward(request, response);
             }
 
         } else if (action.equals("login")) {
-            //compare input to info in users.txt
-            //if valid, start session
 
             String email = request.getParameter("email");
             String password = request.getParameter("password");
@@ -93,7 +92,7 @@ public class MembershipServlet extends HttpServlet {
                 for (User u : users) {
                     if (u.getEmail().equals(email)) {
                         if (u.getPassword().equals(password)) {
-                            HttpSession session = request.getSession();
+                            session = request.getSession();
                             session.setAttribute("user", u);
 
                             String url = "/index.jsp";
@@ -101,13 +100,12 @@ public class MembershipServlet extends HttpServlet {
                         }
                     }
                 }
-
             }
 
             request.setAttribute("message", "Invalid login");
             String url = "/login.jsp";
             getServletContext().getRequestDispatcher(url).forward(request, response);
-        } 
+        }
 
     }
 
