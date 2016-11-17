@@ -23,7 +23,7 @@ public class ProductManagementServlet extends HttpServlet {
         processRequest(request, response);
 
         HttpSession session = request.getSession();
-        String productsFile = getServletContext().getRealPath("/WEB-INF/products.txt");
+        //String productsFile = getServletContext().getRealPath("/WEB-INF/products.txt");
 
         if (session.getAttribute("user") == null) {
             request.setAttribute("message", "You must register and log in.");
@@ -34,7 +34,7 @@ public class ProductManagementServlet extends HttpServlet {
         String url = ""; //Redirection url
         String action = request.getParameter("action"); //Parameter from /productManagement?action= 
 
-        List<Product> products = ProductIO.selectProducts(productsFile);
+        List<Product> products = ProductTable.selectProducts();
 
         request.setAttribute("products", products);
 
@@ -66,7 +66,7 @@ public class ProductManagementServlet extends HttpServlet {
         processRequest(request, response);
 
         HttpSession session = request.getSession();
-        String productsFile = getServletContext().getRealPath("/WEB-INF/products.txt"); 
+        //String productsFile = getServletContext().getRealPath("/WEB-INF/products.txt");
 
         if (session.getAttribute("user") == null) {
             request.setAttribute("message", "You must register and log in.");
@@ -91,12 +91,12 @@ public class ProductManagementServlet extends HttpServlet {
                 p.setCode(code);
                 p.setDescription(description);
 
-                if (ProductIO.exists(code, productsFile)) {
+                if (ProductTable.exists(code)) {
 
-                    ProductIO.updateProduct(p, productsFile);
+                    ProductTable.updateProduct(p);
 
                 } else {
-                    ProductIO.insertProduct(p, productsFile);
+                    ProductTable.insertProduct(p);
 
                 }
             } else {
@@ -112,7 +112,7 @@ public class ProductManagementServlet extends HttpServlet {
 
             String code = request.getParameter("code");
 
-            Product p = ProductIO.selectProduct(code, productsFile);
+            Product p = ProductTable.selectProduct(code);
 
             String description = p.getDescription();
             String price = p.getPrice() + "";
@@ -130,7 +130,7 @@ public class ProductManagementServlet extends HttpServlet {
 
             String code = request.getParameter("code");
 
-            Product p = ProductIO.selectProduct(code, productsFile);
+            Product p = ProductTable.selectProduct(code);
             String description = p.getDescription();
             String price = p.getPrice() + "";
 
@@ -146,8 +146,8 @@ public class ProductManagementServlet extends HttpServlet {
 
             String code = request.getParameter("code");
 
-            Product p = ProductIO.selectProduct(code, productsFile);
-            ProductIO.deleteProduct(p, productsFile);
+            Product p = ProductTable.selectProduct(code);
+            ProductTable.deleteProduct(p);
 
             String url = "/index.jsp";
             getServletContext().getRequestDispatcher(url).forward(request, response);
