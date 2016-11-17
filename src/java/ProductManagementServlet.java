@@ -23,7 +23,6 @@ public class ProductManagementServlet extends HttpServlet {
         processRequest(request, response);
 
         HttpSession session = request.getSession();
-        //String productsFile = getServletContext().getRealPath("/WEB-INF/products.txt");
 
         if (session.getAttribute("user") == null) {
             request.setAttribute("message", "You must register and log in.");
@@ -66,7 +65,6 @@ public class ProductManagementServlet extends HttpServlet {
         processRequest(request, response);
 
         HttpSession session = request.getSession();
-        //String productsFile = getServletContext().getRealPath("/WEB-INF/products.txt");
 
         if (session.getAttribute("user") == null) {
             request.setAttribute("message", "You must register and log in.");
