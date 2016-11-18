@@ -96,7 +96,7 @@ public class ProductTable {
     }
 
     public static boolean exists(String productCode) {
-       
+
         try {
             preparedStatement = connection.prepareStatement("SELECT * FROM products WHERE code = " + productCode);
             resultset = preparedStatement.executeQuery();
@@ -106,11 +106,35 @@ public class ProductTable {
         } catch (Exception e) {
             return false;
         }
-        
+
     }
 
     private static void saveProducts(List<Product> products) {
-        //We don't need this!
+
+        for (Product p : products) {
+
+            String code = p.getCode();
+            String description = p.getDescription();
+            Double price = p.getPrice();
+
+            try {
+
+                String query = "INSERT INTO products (code, description, price) "
+                        + "VALUES (?, ?, ?)";
+
+                preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setString(1, code);
+                preparedStatement.setString(2, description);
+                preparedStatement.setDouble(3, price);
+
+                preparedStatement.executeUpdate();
+
+            } catch (Exception e) {
+
+            }
+
+        }
+
     }
 
     public static void insertProduct(Product product) {
@@ -120,66 +144,65 @@ public class ProductTable {
         Double price = product.getPrice();
 
         try {
-            
-            String query = "INSERT INTO products (code, description, price) " +
-                    "VALUES (?, ?, ?)";
-            
+
+            String query = "INSERT INTO products (code, description, price) "
+                    + "VALUES (?, ?, ?)";
+
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, code);
             preparedStatement.setString(2, description);
             preparedStatement.setDouble(3, price);
-            
+
             preparedStatement.executeUpdate();
-            
-        } catch(Exception e){
-            
+
+        } catch (Exception e) {
+
         }
-        
+
     }
 
     public static void updateProduct(Product product) {
-       
+
         String code = product.getCode();
         String description = product.getDescription();
         Double price = product.getPrice();
 
         try {
-            
+
             String query = "UPDATE products SET "
                     + "code = ?, "
                     + "description = ?, "
                     + "price = ?"
                     + "WHERE code = ?";
-            
+
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, code);
             preparedStatement.setString(2, description);
             preparedStatement.setDouble(3, price);
             preparedStatement.setString(4, code);
-            
+
             preparedStatement.executeUpdate();
-            
-        } catch(Exception e){
-            
+
+        } catch (Exception e) {
+
         }
-        
-        
+
     }
 
     public static void deleteProduct(Product product) {
-        
+
         String code = product.getCode();
-        
+
         try {
-        String query = "DELETE FROM products WHERE code = ?";
-        preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setString(1, code);
-        
-        preparedStatement.executeUpdate();
-        } catch(Exception e){
-            
+            String query = "DELETE FROM products WHERE code = ?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, code);
+
+            preparedStatement.executeUpdate();
+        } catch (Exception e) {
+
         }
-        
+
     }
 
 }

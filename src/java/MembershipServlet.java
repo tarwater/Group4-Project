@@ -28,7 +28,7 @@ public class MembershipServlet extends HttpServlet {
         String action = request.getParameter("action"); //Get the parameter from /membership?action=
         String url = ""; //Will hold redirection URL
 
-        String productsFile = getServletContext().getRealPath("/WEB-INF/products.txt"); 
+        //String productsFile = getServletContext().getRealPath("/WEB-INF/products.txt"); 
 
         if (action.equals("signup")) {
             url = "/signup.jsp";
@@ -55,7 +55,7 @@ public class MembershipServlet extends HttpServlet {
         String action = request.getParameter("action");
         
         HttpSession session = request.getSession();
-        String userFile = getServletContext().getRealPath("/WEB-INF/users.txt");
+        //String userFile = getServletContext().getRealPath("/WEB-INF/users.txt");
 
         if (action.equals("register")) {
 
@@ -74,7 +74,7 @@ public class MembershipServlet extends HttpServlet {
                 user.setFirstName(firstName);
                 user.setLastName(lastName);
                 user.setPassword(password);
-                UserIO.addRecord(user, userFile);
+                UserTable.addRecord(user);
 
                 String url = "/login.jsp";
                 getServletContext().getRequestDispatcher(url).forward(request, response);
@@ -85,7 +85,7 @@ public class MembershipServlet extends HttpServlet {
             String email = request.getParameter("email");
             String password = request.getParameter("password");
 
-            ArrayList<User> users = UserIO.getUsers(userFile);
+            ArrayList<User> users = UserTable.getUsers();
 
             if (!users.isEmpty()) {
 
