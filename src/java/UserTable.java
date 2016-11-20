@@ -118,7 +118,39 @@ public class UserTable {
 
     public static HashMap<String, User> getUsersMap() throws IOException {
         
+        HashMap<String, User> userMap = new HashMap<String, User>();
+        
+        String firstName;
+        String lastName;
+        String userPassword;
+        String email;
+        
+        try {
+            preparedStatement = connection.prepareStatement("SELECT * FROM users");
+
+            resultset = preparedStatement.executeQuery();
+
+            while (resultset.next()) {
+
+                firstName = resultset.getString("firstName");
+                lastName = resultset.getString("lastName");
+                email = resultset.getString("email");
+                userPassword = resultset.getString("password");
+                
+                User u = new User(firstName,lastName, email, userPassword);
+
+                userMap.put(email, u);
+            }
+            
+            return userMap;
+
+        } catch (Exception e) {
+
+        }
         return null;
+        
+        
+        
         
     }
 }
